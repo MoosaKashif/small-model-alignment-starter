@@ -117,8 +117,9 @@ def compute_sft_loss(model, tokenizer, prompts, responses, max_length):
     token_logps = torch.gather(log_probs, 2, safe_labels.unsqueeze(-1)).squeeze(-1)
     token_nll = -token_logps * mask
 
-    per_example_sum_nll = token_nll.sum(dim=1)
-    loss = per_example_sum_nll.mean()
+    total_nll = token_nll.sum()
+    total_tokens = mask.sum().clamp(min=1)
+    loss = total_nll / total_tokens
     return loss
 
 
