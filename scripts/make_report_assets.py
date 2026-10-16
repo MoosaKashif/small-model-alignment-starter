@@ -40,7 +40,7 @@ def plot_sft():
     ax.axvline(summary["best_step"], color="gray", ls="--", lw=1, label=f"best checkpoint (step {summary['best_step']})")
     ax.set_xlabel("optimizer step (effective batch 32)")
     ax.set_ylabel("response-token NLL (mean per token)")
-    ax.set_title("SFT: Qwen2.5-0.5B on UltraChat (30k train / 1k val)")
+    ax.set_title("SFT: Qwen2.5-0.5B on UltraChat (29,997 train / 1,000 val)")
     ax.grid(alpha=0.3)
     ax.legend()
     fig.tight_layout()

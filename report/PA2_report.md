@@ -120,7 +120,7 @@ Both DPO runs start at exactly log 2 (0.693) with accuracy 0 and margin 0, becau
 | HH-RLHF | 0.693 to 0.655 | 0.582 to 0.613 | 0.049 to 0.181 | -0.30 / -0.48 | 0.653, 0.609, 0.183 | 102 min |
 | UltraFeedback | 0.693 to 0.604 | 0.642 to 0.696 | 0.180 to 0.479 | -0.11 / -0.59 | 0.603, 0.695, 0.476 | 136 min |
 
-HH accuracy was close to 0.60 by step 100 and then stayed between 0.59 and 0.61 while the margin kept rising. UltraFeedback learned faster, reaching 0.66 by step 100 and 0.70 by the end. Training accuracy over the last 50 steps (0.62 for HH, 0.70 for UF) is close to the validation numbers, so I see no overfitting in one epoch.
+HH accuracy was close to 0.60 by step 100 and then stayed between 0.587 and 0.613 while the margin kept rising. UltraFeedback learned faster, reaching 0.66 by step 100 and 0.70 by the end. Training accuracy over the last 50 steps (0.62 for HH, 0.70 for UF) is close to the validation numbers, so I see no overfitting in one epoch.
 
 The chosen reward went below zero in both runs. DPO opened the gap mostly by lowering the log-probability of rejected answers, and it lowered the chosen ones a little as well.
 
