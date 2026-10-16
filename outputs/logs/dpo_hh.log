@@ -1,0 +1,84 @@
+Loading Anthropic/hh-rlhf ...
+
+Generating train split:   0%|          | 0/160800 [00:00<?, ? examples/s]
+Generating train split:   5%|▍         | 7672/160800 [00:00<00:02, 65679.80 examples/s]
+Generating train split:  10%|▉         | 15358/160800 [00:00<00:02, 71164.03 examples/s]
+Generating train split:  19%|█▉        | 30676/160800 [00:00<00:01, 85044.66 examples/s]
+Generating train split:  31%|███       | 49138/160800 [00:00<00:01, 88652.94 examples/s]
+Generating train split:  39%|███▉      | 62408/160800 [00:00<00:01, 86502.38 examples/s]
+Generating train split:  47%|████▋     | 75820/160800 [00:00<00:00, 87927.31 examples/s]
+Generating train split:  55%|█████▌    | 89143/160800 [00:01<00:00, 80946.78 examples/s]
+Generating train split:  61%|██████    | 97521/160800 [00:01<00:01, 62946.81 examples/s]
+Generating train split:  66%|██████▌   | 105939/160800 [00:01<00:01, 53162.16 examples/s]
+Generating train split:  71%|███████   | 113512/160800 [00:01<00:00, 53165.38 examples/s]
+Generating train split:  77%|███████▋  | 123909/160800 [00:01<00:00, 56392.61 examples/s]
+Generating train split:  84%|████████▎ | 134358/160800 [00:02<00:00, 58842.62 examples/s]
+Generating train split:  90%|████████▉ | 144714/160800 [00:02<00:00, 60265.55 examples/s]
+Generating train split:  96%|█████████▋| 155034/160800 [00:02<00:00, 61992.29 examples/s]
+Generating train split: 100%|██████████| 160800/160800 [00:02<00:00, 66539.15 examples/s]
+
+Generating test split:   0%|          | 0/8552 [00:00<?, ? examples/s]
+Generating test split: 100%|██████████| 8552/8552 [00:00<00:00, 69620.95 examples/s]
+Generating test split: 100%|██████████| 8552/8552 [00:00<00:00, 69445.72 examples/s]
+train pairs=15000 (prompts truncated: 62) | val pairs=1000 (prompts truncated: 8)
+`torch_dtype` is deprecated! Use `dtype` instead!
+{'stage': 'dpo_hh', 'dataset': 'Anthropic/hh-rlhf', 'train_split': 'train', 'val_split': 'test', 'filtering': 'single-turn only (multi-turn dropped), non-empty, chosen != rejected; shuffled with seed', 'n_train': 15000, 'n_val': 1000, 'n_train_prompts_truncated': 62, 'n_val_prompts_truncated': 8, 'initial_policy': 'outputs/sft/best', 'reference_model': 'outputs/sft/best (frozen, no_grad)', 'prompt_template': '### Instruction:\n{instruction}\n\n### Response:\n', 'max_length': 512, 'max_prompt_length': 256, 'per_device_batch_size': 1, 'grad_accum': 32, 'effective_batch_size': 32, 'optimizer': 'AdamW (betas 0.9/0.999, eps 1e-8)', 'lr': 1e-06, 'scheduler': 'constant (no warmup, no decay)', 'weight_decay': 0.0, 'beta': 0.1, 'max_grad_norm': 1.0, 'epochs': 1, 'optimizer_steps': 469, 'precision': 'policy fp32 weights + fp16 autocast + GradScaler; reference fp32 weights under the same fp16 autocast', 'policy_device': 'cuda:0', 'reference_device': 'cuda:1', 'eval_every_steps': 50, 'checkpoint_selection': 'highest validation reward accuracy', 'trainable': 'full fine-tuning', 'seed': 42}
+  [eval] step 0: loss=0.6931 acc=0.000 margin=0.0000
+step 1/469 | loss 0.6931 | acc 0.000 | margin 0.0000 | grad_norm nan | eta 88 min
+step 10/469 | loss 0.6800 | acc 0.688 | margin 0.0283 | grad_norm 44.34 | eta 85 min
+step 20/469 | loss 0.6707 | acc 0.594 | margin 0.0569 | grad_norm 45.61 | eta 83 min
+step 30/469 | loss 0.7111 | acc 0.531 | margin -0.0217 | grad_norm 41.89 | eta 81 min
+step 40/469 | loss 0.6747 | acc 0.656 | margin 0.0477 | grad_norm 40.26 | eta 79 min
+step 50/469 | loss 0.6600 | acc 0.594 | margin 0.0821 | grad_norm 40.07 | eta 77 min
+  [eval] step 50: loss=0.6770 acc=0.582 margin=0.0490  -> new best, saved
+step 60/469 | loss 0.6771 | acc 0.500 | margin 0.0529 | grad_norm 38.94 | eta 86 min
+step 70/469 | loss 0.6944 | acc 0.375 | margin 0.0288 | grad_norm 40.54 | eta 82 min
+step 80/469 | loss 0.6908 | acc 0.594 | margin 0.0491 | grad_norm 38.76 | eta 79 min
+step 90/469 | loss 0.6425 | acc 0.562 | margin 0.1360 | grad_norm 41.84 | eta 76 min
+step 100/469 | loss 0.6294 | acc 0.625 | margin 0.1599 | grad_norm 41.33 | eta 73 min
+  [eval] step 100: loss=0.6697 acc=0.598 margin=0.0895  -> new best, saved
+step 110/469 | loss 0.6700 | acc 0.625 | margin 0.0996 | grad_norm 40.35 | eta 76 min
+step 120/469 | loss 0.6889 | acc 0.594 | margin 0.0450 | grad_norm 46.15 | eta 73 min
+step 130/469 | loss 0.6335 | acc 0.562 | margin 0.1998 | grad_norm 42.88 | eta 71 min
+step 140/469 | loss 0.6769 | acc 0.500 | margin 0.0810 | grad_norm 38.31 | eta 68 min
+step 150/469 | loss 0.6956 | acc 0.594 | margin 0.0309 | grad_norm 38.45 | eta 66 min
+  [eval] step 150: loss=0.6651 acc=0.587 margin=0.1115
+step 160/469 | loss 0.6862 | acc 0.562 | margin 0.0620 | grad_norm 44.32 | eta 66 min
+step 170/469 | loss 0.5979 | acc 0.656 | margin 0.2737 | grad_norm 42.86 | eta 63 min
+step 180/469 | loss 0.6970 | acc 0.562 | margin 0.0573 | grad_norm 40.95 | eta 61 min
+step 190/469 | loss 0.6189 | acc 0.594 | margin 0.2570 | grad_norm 44.04 | eta 58 min
+step 200/469 | loss 0.7148 | acc 0.562 | margin 0.0464 | grad_norm 41.65 | eta 56 min
+  [eval] step 200: loss=0.6620 acc=0.595 margin=0.1333
+step 210/469 | loss 0.6397 | acc 0.531 | margin 0.1664 | grad_norm 37.44 | eta 55 min
+step 220/469 | loss 0.6110 | acc 0.594 | margin 0.2374 | grad_norm 38.91 | eta 53 min
+step 230/469 | loss 0.6659 | acc 0.625 | margin 0.1298 | grad_norm 40.11 | eta 50 min
+step 240/469 | loss 0.6783 | acc 0.531 | margin 0.1031 | grad_norm 38.10 | eta 48 min
+step 250/469 | loss 0.6283 | acc 0.719 | margin 0.2286 | grad_norm 43.36 | eta 46 min
+  [eval] step 250: loss=0.6582 acc=0.598 margin=0.1422
+step 260/469 | loss 0.6140 | acc 0.750 | margin 0.2229 | grad_norm 46.46 | eta 45 min
+step 270/469 | loss 0.7023 | acc 0.625 | margin 0.0825 | grad_norm 39.67 | eta 42 min
+step 280/469 | loss 0.6030 | acc 0.688 | margin 0.2285 | grad_norm 38.79 | eta 40 min
+step 290/469 | loss 0.6392 | acc 0.688 | margin 0.1603 | grad_norm 39.54 | eta 38 min
+step 300/469 | loss 0.6818 | acc 0.500 | margin 0.1251 | grad_norm 46.82 | eta 35 min
+  [eval] step 300: loss=0.6603 acc=0.610 margin=0.1550  -> new best, saved
+step 310/469 | loss 0.6591 | acc 0.625 | margin 0.1275 | grad_norm 40.21 | eta 34 min
+step 320/469 | loss 0.5761 | acc 0.656 | margin 0.3448 | grad_norm 38.32 | eta 32 min
+step 330/469 | loss 0.6328 | acc 0.656 | margin 0.2275 | grad_norm 35.17 | eta 29 min
+step 340/469 | loss 0.6846 | acc 0.531 | margin 0.1025 | grad_norm 41.75 | eta 27 min
+step 350/469 | loss 0.7064 | acc 0.562 | margin 0.0474 | grad_norm 42.57 | eta 25 min
+  [eval] step 350: loss=0.6578 acc=0.588 margin=0.1784
+step 360/469 | loss 0.5953 | acc 0.625 | margin 0.3170 | grad_norm 43.05 | eta 23 min
+step 370/469 | loss 0.5327 | acc 0.688 | margin 0.4814 | grad_norm 34.13 | eta 21 min
+step 380/469 | loss 0.5859 | acc 0.594 | margin 0.3254 | grad_norm 40.79 | eta 19 min
+step 390/469 | loss 0.6266 | acc 0.594 | margin 0.2012 | grad_norm 43.56 | eta 17 min
+step 400/469 | loss 0.6233 | acc 0.656 | margin 0.2756 | grad_norm 39.91 | eta 15 min
+  [eval] step 400: loss=0.6564 acc=0.612 margin=0.1754  -> new best, saved
+step 410/469 | loss 0.6116 | acc 0.719 | margin 0.2939 | grad_norm 37.87 | eta 13 min
+step 420/469 | loss 0.6800 | acc 0.625 | margin 0.1057 | grad_norm 43.86 | eta 10 min
+step 430/469 | loss 0.6509 | acc 0.656 | margin 0.2673 | grad_norm 43.99 | eta 8 min
+step 440/469 | loss 0.5908 | acc 0.719 | margin 0.3031 | grad_norm 39.31 | eta 6 min
+step 450/469 | loss 0.6811 | acc 0.531 | margin 0.0997 | grad_norm 45.84 | eta 4 min
+  [eval] step 450: loss=0.6548 acc=0.613 margin=0.1806  -> new best, saved
+step 460/469 | loss 0.6729 | acc 0.594 | margin 0.1338 | grad_norm 43.90 | eta 2 min
+  [eval] step 469: loss=0.6533 acc=0.609 margin=0.1833
+dpo_hh done: {'best_step': 450, 'best_val_reward_acc': 0.6129999756813049, 'best_metrics': {'val_loss': 0.6548361504077911, 'val_reward_acc': 0.6129999756813049, 'val_reward_margin': 0.18061868846416473, 'val_chosen_reward': -0.30192962288856506, 'val_rejected_reward': -0.4825482964515686}, 'final_step': 469, 'final_metrics': {'val_loss': 0.6533399376273156, 'val_reward_acc': 0.609000027179718, 'val_reward_margin': 0.18330810964107513, 'val_chosen_reward': -0.26916784048080444, 'val_rejected_reward': -0.4524759352207184}, 'best_checkpoint': 'outputs/dpo_hh/best', 'final_checkpoint': 'outputs/dpo_hh/final', 'reference_checkpoint': 'outputs/sft/best', 'train_minutes': 102.04604247411092}

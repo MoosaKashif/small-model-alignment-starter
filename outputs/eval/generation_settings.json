@@ -1,0 +1,14 @@
+{
+  "do_sample": false,
+  "max_new_tokens": 256,
+  "repetition_penalty": 1.3,
+  "no_repeat_ngram_size": 3,
+  "length_penalty": 1.0,
+  "temperature": null,
+  "top_p": null,
+  "batch_size": 16,
+  "padding_side": "left",
+  "qwen_prompt_template": "### Instruction:\n{instruction}\n\n### Response:\n",
+  "smollm_prompt_format": "tokenizer.apply_chat_template([user message], add_generation_prompt=True)",
+  "weights_dtype_for_generation": "fp32"
+}

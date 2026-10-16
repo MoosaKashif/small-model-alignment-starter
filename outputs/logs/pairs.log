@@ -1,0 +1,4 @@
+outputs/eval/dpo_hh_vs_sft_pairs.jsonl: 300 pairs, candidate shown as A in 151
+outputs/eval/dpo_uf_vs_sft_pairs.jsonl: 300 pairs, candidate shown as A in 146
+outputs/eval/lora_vs_base_style_pairs.jsonl: 24 pairs, candidate shown as A in 15
+outputs/eval/lora_vs_base_quality_pairs.jsonl: 24 pairs, candidate shown as A in 16

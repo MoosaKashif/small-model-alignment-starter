@@ -1,0 +1,23 @@
+{
+  "best_step": 450,
+  "best_val_reward_acc": 0.6959999799728394,
+  "best_metrics": {
+    "val_loss": 0.6044498639851809,
+    "val_reward_acc": 0.6959999799728394,
+    "val_reward_margin": 0.4787982404232025,
+    "val_chosen_reward": -0.10888154059648514,
+    "val_rejected_reward": -0.5876798033714294
+  },
+  "final_step": 469,
+  "final_metrics": {
+    "val_loss": 0.6030945300757885,
+    "val_reward_acc": 0.6949999928474426,
+    "val_reward_margin": 0.47616276144981384,
+    "val_chosen_reward": -0.10138381272554398,
+    "val_rejected_reward": -0.5775466561317444
+  },
+  "best_checkpoint": "outputs/dpo_uf/best",
+  "final_checkpoint": "outputs/dpo_uf/final",
+  "reference_checkpoint": "outputs/sft/best",
+  "train_minutes": 136.14493439992268
+}

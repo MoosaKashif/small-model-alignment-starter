@@ -1,0 +1,31 @@
+## Data
+
+| Track | Source | Train | Val | Filtering / formatting | Evaluation set |
+|---|---|---|---|---|---|
+| SFT | HuggingFaceH4/ultrachat_200k train_sft[:30000] / test_sft[:1000] | 29997 | 1000 (test_sft) | first user turn -> first assistant turn; 3 rows without both dropped | AlpacaEval-300 (seed 42) |
+| HH-RLHF DPO | Anthropic/hh-rlhf (train/test) | 15000 | 1000 | single-turn only (multi-turn dropped), non-empty, chosen != rejected; shuffled with seed; 62 train prompts truncated | eval_sets/hh_rlhf_eval_300_seed42.json (300) |
+| UltraFeedback DPO | HuggingFaceH4/ultrafeedback_binarized (train_prefs/test_prefs) | 15000 | 1000 | single-turn only (multi-turn dropped), non-empty, chosen != rejected; shuffled with seed; 2795 train prompts truncated | AlpacaEval-300 (seed 42) |
+| LoRA-DPO | data/persona_lora/ramsay_style_preferences.json | 200 | 20 (held out) | TRL conversational (prompt/chosen/rejected as role-message lists); model chat template | outputs/eval/persona_style_eval_prompts.json (24) |
+
+## Experimental configuration
+
+| Run | Trainable params | Optimizer | Peak LR | Scheduler | Warmup | Weight decay | Grad clip | Per-device batch | Grad accum | Effective batch | Precision | Max seq len | Epochs / steps | Seed | DPO beta | Reference model | Train / val examples |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| SFT | full fine-tuning | AdamW | 2e-05 | cosine with linear warmup | 0.03 | 0.1 | 1.0 | 2 | 16 | 32 | fp32 weights + fp16 autocast + GradScaler | 512 | 1 ep / 937 steps | none (data in file order) | - | - | 29997 / 1000 |
+| HH-RLHF DPO | full fine-tuning | AdamW (betas 0.9/0.999, eps 1e-8) | 1e-06 | constant (no warmup, no decay) | 0 | 0.0 | 1.0 | 1 | 32 | 32 | policy fp32 weights + fp16 autocast + GradScaler; reference fp32 weights under the same fp16 autocast | 512 (prompt 256) | 1 ep / 469 steps | 42 | 0.1 | outputs/sft/best (frozen, no_grad) | 15000 / 1000 |
+| UltraFeedback DPO | full fine-tuning | AdamW (betas 0.9/0.999, eps 1e-8) | 1e-06 | constant (no warmup, no decay) | 0 | 0.0 | 1.0 | 1 | 32 | 32 | policy fp32 weights + fp16 autocast + GradScaler; reference fp32 weights under the same fp16 autocast | 512 (prompt 256) | 1 ep / 469 steps | 42 | 0.1 | outputs/sft/best (frozen, no_grad) | 15000 / 1000 |
+| LoRA-DPO | LoRA r=16, alpha=32, dropout=0.05, targets=q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj (8,683,520 trainable) | AdamW (adamw_torch) | 5e-05 | cosine | 0.1 | 0.0 | 1.0 | 4 | 2 | 8 | fp32 base + fp16 AMP | 512 (prompt 256) | 3 ep / 75 steps | 42 | 0.1 | base model with the LoRA adapter disabled (TRL default when peft_config is given) | 200 / 20 |
+
+**Generation settings (all models, all evaluation sets):** do_sample=False, max_new_tokens=256, repetition_penalty=1.3, no_repeat_ngram_size=3, length_penalty=1.0; temperature/top-p not used (greedy); batch size 16, left padding.
+Qwen prompt template: `'### Instruction:\n{instruction}\n\n### Response:\n'` (no chat template). SmolLM2 models use their own chat template with add_generation_prompt=True.
+
+## Training results
+
+| Run | Selected checkpoint | Selection metric (best) | Final-step metric | Train time (min) |
+|---|---|---|---|---|
+| SFT | outputs/sft/best (step 900) | val loss 1.3559 | val loss 1.3559 (step 937) | - |
+| HH-RLHF DPO | outputs/dpo_hh/best (step 450) | reward acc 0.613, margin 0.1806, val loss 0.6548 | reward acc 0.609, margin 0.1833, val loss 0.6533 (step 469) | 102 |
+| UltraFeedback DPO | outputs/dpo_uf/best (step 450) | reward acc 0.696, margin 0.4788, val loss 0.6044 | reward acc 0.695, margin 0.4762, val loss 0.6031 (step 469) | 136 |
+| LoRA-DPO | outputs/lora_dpo/adapter (end of training) | held-out reward acc 1.000, margin 2.269, loss 0.1104 | before training: loss 0.6931 | - |
+
+plots: ['dpo_hh_training.png', 'dpo_uf_training.png', 'lora_dpo_training.png', 'sft_loss.png']

@@ -1,0 +1,8 @@
+{
+  "best_step": 900,
+  "best_val_loss": 1.3559,
+  "final_step": 937,
+  "final_val_loss": 1.3559,
+  "best_checkpoint": "outputs/sft/full/best (full run)",
+  "train_minutes": null
+}

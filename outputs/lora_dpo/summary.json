@@ -1,0 +1,34 @@
+{
+  "heldout_before": {
+    "eval_loss": 0.6931473016738892,
+    "eval_model_preparation_time": 0.0229,
+    "eval_runtime": 1.5774,
+    "eval_samples_per_second": 12.679,
+    "eval_steps_per_second": 3.17,
+    "eval_rewards/chosen": 0.0,
+    "eval_rewards/rejected": 0.0,
+    "eval_rewards/accuracies": 0.0,
+    "eval_rewards/margins": 0.0,
+    "eval_logps/chosen": -175.34841918945312,
+    "eval_logps/rejected": -126.15934753417969,
+    "eval_logits/chosen": 0.5051172375679016,
+    "eval_logits/rejected": -0.07477160543203354
+  },
+  "heldout_after": {
+    "eval_loss": 0.11037252843379974,
+    "eval_model_preparation_time": 0.0229,
+    "eval_runtime": 1.1783,
+    "eval_samples_per_second": 16.974,
+    "eval_steps_per_second": 4.243,
+    "eval_rewards/chosen": 1.064382791519165,
+    "eval_rewards/rejected": -1.2044225931167603,
+    "eval_rewards/accuracies": 1.0,
+    "eval_rewards/margins": 2.2688052654266357,
+    "eval_logps/chosen": -164.70458984375,
+    "eval_logps/rejected": -138.20358276367188,
+    "eval_logits/chosen": 0.33925896883010864,
+    "eval_logits/rejected": 0.14041736721992493,
+    "epoch": 3.0
+  },
+  "adapter_dir": "outputs/lora_dpo/adapter"
+}
